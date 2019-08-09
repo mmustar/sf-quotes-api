@@ -1,1 +1,2 @@
-quote-api
+1) Entities
+2) composer require orm
