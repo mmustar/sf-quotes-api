@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -40,7 +41,7 @@ class QuoteController extends AbstractController
      */
     public function getOne(int $id): Response
     {
-        return $this->json($this->repository->findOneById($id));
+        return $this->json($this->repository->findOneById($id),Response::HTTP_OK, [], ["groups" => ["quote", "owner_api"]] );
     }
 
     /**
@@ -56,6 +57,9 @@ class QuoteController extends AbstractController
         $ownerId = $content['owner_id'];
         $owner = $this->ownerRepository->findOneById($ownerId);
 
+        if(!$owner) {
+            return new Response("Owner not foundwith this id", Response::HTTP_BAD_REQUEST);
+        }
         $quote->own($owner);
 
         $errors = $validator->validate($owner);
