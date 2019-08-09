@@ -18,11 +18,11 @@ class QuoteOwner
      */
     private $id;
     /**
-     * @ORM\Column(type="string", length="150")
+     * @ORM\Column(type="string", length=150)
      */
     private $fullname;
     /**
-     * @ORM\OneToMany(targetEntity="Quote", "mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="Quote", mappedBy="owner")
      */
     private $quotes;
 
