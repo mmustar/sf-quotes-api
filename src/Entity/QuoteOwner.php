@@ -28,7 +28,7 @@ class QuoteOwner
     }
 
     /**
-     * @return \App\Entity\Quote[]
+     * @return Quote[]
      */
     public function getQuotes()
     {
